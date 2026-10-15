@@ -16,18 +16,18 @@ import java.sql.Date;
  * Eventually, a blank pipeline should also be created when client gets created.
  * @author Julia Scott
  */
-public class Add_Client extends JFrame implements ActionListener {
+public class AddClient extends JFrame implements ActionListener {
     JButton add_button =  new JButton("   Add  ");
     JButton back_button = new JButton(" Cancel ");
     JTextField name = new JTextField();
     JTextField note = new JTextField();
     JComboBox box;
 
-    Add_Client() {
+    AddClient() {
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //application cannot be closed by X
 
-        //other details handled by setDefaults in RunClient_and_Methods.java
+        //other details handled by setDefaults in RunClientAndMethods.java
         this.setSize(500,600);
         this.setLocationRelativeTo(null);
 
@@ -82,12 +82,12 @@ public class Add_Client extends JFrame implements ActionListener {
             //code to get today's date for the Date_Added section
             LocalDate today = LocalDate.now();
             Date sqlDate = Date.valueOf(today);
-            //TODO: organize where most called methods are: RunClient_and_Methods.java vs DB_connection.java
+            //TODO: organize where most called methods are: RunClientAndMethods.java vs DatabaseConnection.java
             String id;
             try {
                 //id calls to a method in RunClient_and_Methods which generates a unique ID
                 //that is one more than the current max
-                id = String.valueOf(RunClient_and_Methods.generate_unique_ID());
+                id = String.valueOf(RunClientAndMethods.generate_unique_ID());
                 System.out.println("ID = "+ id);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -98,20 +98,20 @@ public class Add_Client extends JFrame implements ActionListener {
              * the stored procedure test_execute_command uses to add
              * the client to the database.
              */
-            //calls the method execute_query from RunClient_and_Methods.java
+            //calls the method execute_query from RunClientAndMethods.java
             //which executes the stored procedure
             StringBuilder message = new StringBuilder("INSERT:CLIENT:");
             message.append("Client_ID:").append(id)
                     .append(":Date_Added:").append(sqlDate)
-                    .append(":Legal_Name:").append(RunClient_and_Methods.clean(name.getText()))
+                    .append(":Legal_Name:").append(RunClientAndMethods.clean(name.getText()))
                     .append(":Source:").append(box.getSelectedItem().toString())
-                    .append(":Note:").append(RunClient_and_Methods.clean(note.getText()));
+                    .append(":Note:").append(RunClientAndMethods.clean(note.getText()));
             System.out.println(message.toString());
             try {
-                RunClient_and_Methods.execute_query(message.toString());
+                RunClientAndMethods.executeQuery(message.toString());
                 //message popup to confirm client added successfully
                 JOptionPane.showMessageDialog(null, "Client Added");
-                EventQueue.invokeLater(Home_Menu::new);
+                EventQueue.invokeLater(HomeMenu::new);
                 this.dispose();
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -119,8 +119,8 @@ public class Add_Client extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == back_button) {
-            EventQueue.invokeLater(RunClient_and_Methods::home_menu_screen);
-            Add_Client.this.dispose();
+            EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
+            AddClient.this.dispose();
         }
     }
 }

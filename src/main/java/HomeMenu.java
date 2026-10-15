@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class Home_Menu extends JFrame implements ActionListener {
+public class HomeMenu extends JFrame implements ActionListener {
     static Color logoYellow = new Color(241,204,97);
     DefaultListModel<Client> model = new DefaultListModel<>();
     JList<Client> list = new JList<>(model);
@@ -21,7 +21,7 @@ public class Home_Menu extends JFrame implements ActionListener {
      * and gets a list with all the client's details.
      * @author Julia Scott
      */
-    Home_Menu() {
+    HomeMenu() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Launcher stops when application is closed, stored procedure is removed as well
         this.setResizable(false);
         ImageIcon image = new ImageIcon("SF_Logo.png");
@@ -54,7 +54,7 @@ public class Home_Menu extends JFrame implements ActionListener {
         clientList.add(clientsLabel, BorderLayout.NORTH);
         //creates client objects, using Client.java class
         try {
-            PreparedStatement stmt = DB_connection.conn.prepareStatement("SELECT * FROM CLIENT");
+            PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT * FROM CLIENT");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 model.addElement(new Client(rs.getInt("Client_ID"), rs.getString("Legal_Name"),
@@ -99,8 +99,8 @@ public class Home_Menu extends JFrame implements ActionListener {
         Client selected = list.getSelectedValue();
         //if add selected
         if (e.getSource() == add_button) {
-            EventQueue.invokeLater(RunClient_and_Methods::add_client_screen);
-            Home_Menu.this.dispose();
+            EventQueue.invokeLater(RunClientAndMethods::add_client_screen);
+            HomeMenu.this.dispose();
         }
         //if update selected, call view/edit UI based on selected client values
         if (e.getSource() == update_button) {
@@ -109,7 +109,7 @@ public class Home_Menu extends JFrame implements ActionListener {
                 return;
             }
             EventQueue.invokeLater(() -> new ViewEditClientUI(selected));
-            Home_Menu.this.dispose();
+            HomeMenu.this.dispose();
         }
         if (e.getSource() == delete_button) {
             if (selected == null) {
@@ -124,7 +124,7 @@ public class Home_Menu extends JFrame implements ActionListener {
             }
             String message = "DELETE:CLIENT:Client_ID:" + selected.getId();
             try {
-                RunClient_and_Methods.execute_query(message);
+                RunClientAndMethods.executeQuery(message);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

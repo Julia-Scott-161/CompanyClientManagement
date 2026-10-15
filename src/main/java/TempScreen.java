@@ -4,13 +4,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
- * to show working buttons
+ * Created to show working buttons and interface changing.
+ * Currently replaced with a message popup instead
  * @author Julia Scott
  */
-public class Temp_Screen extends JFrame implements ActionListener {
+public class TempScreen extends JFrame implements ActionListener {
     JButton back = new JButton("Go Back to Home Menu");
     JLabel title = new JLabel("You have reached an Unimplemented Interface");
-    Temp_Screen() {
+
+    TempScreen() {
         JFrame frame = new JFrame();
         this.setSize(300,300);
         this.setLayout(new FlowLayout(FlowLayout.CENTER,500,50));
@@ -24,7 +26,7 @@ public class Temp_Screen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
-            EventQueue.invokeLater(RunClient_and_Methods::home_menu_screen);
+            EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
             this.dispose();
         }
     }

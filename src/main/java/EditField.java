@@ -103,7 +103,7 @@ public class EditField extends JPanel implements ActionListener {
             return ((Boolean) v) ? "1" : "0";
         }
 
-        return RunClient_and_Methods.clean(v.toString());
+        return RunClientAndMethods.clean(v.toString());
     }
 
     //TODO: can remove table parameter, as EditFields only currently implemented within CLIENT
@@ -159,7 +159,7 @@ public class EditField extends JPanel implements ActionListener {
                 originalValue = value;
 
                 try {
-                    RunClient_and_Methods.execute_query(update);
+                    RunClientAndMethods.executeQuery(update);
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();

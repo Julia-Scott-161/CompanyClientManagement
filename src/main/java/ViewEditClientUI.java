@@ -105,7 +105,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
 
             g.gridx = 1;
             try {
-                PreparedStatement stmt = DB_connection.conn.prepareStatement("SELECT PipeLoc FROM PIPELINE WHERE Client_ID = ?");
+                PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT PipeLoc FROM PIPELINE WHERE Client_ID = ?");
                 stmt.setInt(1, client.getId());
 
                 ResultSet rs = stmt.executeQuery();
@@ -173,7 +173,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
             try {
                 //calls direct sql, so it uses executeQuery() rather than
                 //RunClient_and_Methods.execute_query(stmt).
-                PreparedStatement stmt = DB_connection.conn.prepareStatement(
+                PreparedStatement stmt = DatabaseConnection.conn.prepareStatement(
                         "SELECT * FROM TOUCHPOINT WHERE Client_ID = ?"
                 );
                 stmt.setInt(1, client.getId());
@@ -223,7 +223,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
             JPanel contactListPanel = new JPanel(new BorderLayout());
             contactListPanel.setPreferredSize(new Dimension(500, 100));
             try {
-                PreparedStatement stmt = DB_connection.conn.prepareStatement("SELECT * FROM CONTACT WHERE Client_ID = ?");
+                PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT * FROM CONTACT WHERE Client_ID = ?");
                 stmt.setInt(1, client.getId());
 
                 ResultSet rs = stmt.executeQuery();
@@ -297,7 +297,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {
                 case "BACK":
-                    EventQueue.invokeLater(RunClient_and_Methods::home_menu_screen);
+                    EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
                     ViewEditClientUI.this.dispose();
                     break;
                 case "TRIPS":

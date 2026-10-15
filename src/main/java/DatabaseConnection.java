@@ -8,7 +8,7 @@ import java.sql.*;
  * in our group can connect to their individual databases.
  * @author Julia Scott
  */
-public class DB_connection extends JFrame implements ActionListener {
+public class DatabaseConnection extends JFrame implements ActionListener {
     protected static Connection conn = null;
 
     JButton DB_connect = new JButton("Connect to Database");
@@ -16,7 +16,7 @@ public class DB_connection extends JFrame implements ActionListener {
     JTextField username = new JTextField();
 
 
-    DB_connection(){
+    DatabaseConnection(){
         this.setLayout(new FlowLayout(FlowLayout.CENTER,15,0));
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //application cannot be closed by X
         this.setResizable(false);
@@ -69,7 +69,7 @@ public class DB_connection extends JFrame implements ActionListener {
         if (conn != null) {
             String sql = "DROP PROCEDURE IF EXISTS test_execute_command";
             // DDL is not a callable "{call ...}", so use a plain Statement (works with every JDBC driver)
-            try (Statement dropSP = DB_connection.conn.createStatement()) {
+            try (Statement dropSP = DatabaseConnection.conn.createStatement()) {
                 dropSP.execute(sql);
             }
         }
@@ -281,7 +281,7 @@ public class DB_connection extends JFrame implements ActionListener {
                     connect(username.getText(), password.getText());
                     //set up stored procedure
                     this.setVisible(false); //get rid of/hide start menu
-                    EventQueue.invokeLater(RunClient_and_Methods::home_menu_screen);
+                    EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Couldn't connect, try again!\n" + ex.getMessage());

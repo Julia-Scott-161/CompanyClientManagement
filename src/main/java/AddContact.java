@@ -101,29 +101,29 @@ public class AddContact extends JFrame implements ActionListener {
                 //that is one more than the current max
                 //currently a different method than to generate client_ID, since coding it
                 // to accept table/Column Name didn't get implemented in time
-                id = String.valueOf(RunClient_and_Methods.generate_contact_ID());
+                id = String.valueOf(RunClientAndMethods.generate_contact_ID());
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            //preferred currently a string for UI reading, so set it
-            // to 1 or 0 so database can read it.
+            // Preferred is currently a string for UI reading, so it's
+            // set to 1 or 0 so database can read it.
             int preferredInt = preferred ? 1 : 0;
             /*
              * message parses the given values into a statement which
              * the stored procedure test_execute_command uses to add
              * the client to the database.
              */
-            //calls the method execute_query from RunClient_and_Methods.java
+            //calls the method execute_query from RunClientAndMethods.java
             //which executes the stored procedure
             StringBuilder message = new StringBuilder("INSERT:CONTACT:");
             message.append("Contact_ID:").append(id)
                     .append(":Cnt_Type:").append(type)
                     .append(":Pref_Cont:").append(preferredInt)
-                    .append(":Contact_Info:").append(RunClient_and_Methods.clean(info))
+                    .append(":Contact_Info:").append(RunClientAndMethods.clean(info))
                     .append(":Client_ID:").append(myClient.getId());
 
             try {
-                RunClient_and_Methods.execute_query(message.toString());
+                RunClientAndMethods.executeQuery(message.toString());
                 //message to show that contact was added successfully
                 JOptionPane.showMessageDialog(null, "Contact Added");
                 EventQueue.invokeLater(() -> new ViewEditClientUI(myClient)); //go back to the client which contact was added for

@@ -1,8 +1,7 @@
 import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
 
-public class RunClient_and_Methods {
+public class RunClientAndMethods {
 
     /**
      * set_defaults(frame) adds consistency between UIs without effecting
@@ -12,7 +11,7 @@ public class RunClient_and_Methods {
      * centers frame location to the middle of the computer
      * @param frame the JFrame that is created by that class
      */
-    public static void set_defaults(JFrame frame) {
+    public static void setDefaults(JFrame frame) {
         ImageIcon image = new ImageIcon("SF_Logo.png");
         frame.setIconImage(image.getImage());
         frame.setTitle("Demo Company Client Management");
@@ -42,7 +41,7 @@ public class RunClient_and_Methods {
         return result;
     }
 
-    static String delegate_queries(String request) throws Exception {
+    static String delegateQueries(String request) throws Exception {
         String[] parts = request.split(":");
 
         if (parts.length < 0) {
@@ -71,15 +70,15 @@ public class RunClient_and_Methods {
      * @param message parsed statement that is put in stored procedure
      * @throws SQLException
      */
-    public static void execute_query(String message) throws SQLException {
+    public static void executeQuery(String message) throws SQLException {
         String statement = "";
         try {
-            statement = delegate_queries(message);
+            statement = delegateQueries(message);
         } catch (Exception e) {
             return;
         }
 
-        try (CallableStatement stmt = DB_connection.conn.prepareCall("CALL test_execute_command(?)")) {
+        try (CallableStatement stmt = DatabaseConnection.conn.prepareCall("CALL test_execute_command(?)")) {
             stmt.setString(1, message);
             boolean hasResults = stmt.execute();
             if (hasResults) {
@@ -108,7 +107,7 @@ public class RunClient_and_Methods {
      */
     public static int generate_unique_ID() throws SQLException {
         try {
-            PreparedStatement stmt = DB_connection.conn.prepareStatement("SELECT MAX(Client_ID) AS max_ID FROM CLIENT");
+            PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT MAX(Client_ID) AS max_ID FROM CLIENT");
             ResultSet set = stmt.executeQuery();
             //"
             set.next();
@@ -131,7 +130,7 @@ public class RunClient_and_Methods {
      */
     public static int generate_contact_ID() throws SQLException {
         try {
-            PreparedStatement stmt = DB_connection.conn.prepareStatement("SELECT MAX(Contact_ID) AS max_ID FROM CONTACT");
+            PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT MAX(Contact_ID) AS max_ID FROM CONTACT");
             ResultSet set = stmt.executeQuery();
             set.next();
             int new_id = set.getInt("max_ID") + 1;
@@ -146,30 +145,30 @@ public class RunClient_and_Methods {
 
     }
     static void add_client_screen() {
-        Add_Client frame = new Add_Client();
-        set_defaults(frame);
+        AddClient frame = new AddClient();
+        setDefaults(frame);
     }
 
     static void home_menu_screen() {
-        Home_Menu frame = new Home_Menu();
-        set_defaults(frame);
+        HomeMenu frame = new HomeMenu();
+        setDefaults(frame);
     }
 
-    static void temp_screen() {
-        Temp_Screen frame = new Temp_Screen();
-        set_defaults(frame);
+    static void TempScreen() {
+        TempScreen frame = new TempScreen();
+        setDefaults(frame);
     }
 
     static void database_connection() {
-        DB_connection frame = new DB_connection();
-        set_defaults(frame);
+        DatabaseConnection frame = new DatabaseConnection();
+        setDefaults(frame);
     }
 
     public static void main(String[] args) {
         database_connection();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                DB_connection.dropProcedure();
+                DatabaseConnection.dropProcedure();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
