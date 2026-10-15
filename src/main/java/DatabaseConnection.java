@@ -29,8 +29,8 @@ public class DatabaseConnection extends JFrame implements ActionListener {
 
         JPanel user = new JPanel();
         user.setPreferredSize(new Dimension(300,75));
-        JLabel username_label = new JLabel("Database: ");
-        user.add(username_label);
+        JLabel usernameLabel = new JLabel("Database: ");
+        user.add(usernameLabel);
 
 
         username.setPreferredSize(new Dimension(100,25));
@@ -38,8 +38,8 @@ public class DatabaseConnection extends JFrame implements ActionListener {
 
         JPanel pass = new JPanel();
         pass.setPreferredSize(new Dimension(300,75));
-        JLabel password_label = new JLabel("Password: ");
-        pass.add(password_label);
+        JLabel passwordLabel = new JLabel("Password: ");
+        pass.add(passwordLabel);
 
 
         password.setPreferredSize(new Dimension(100,25));

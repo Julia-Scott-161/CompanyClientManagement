@@ -8,13 +8,15 @@ import java.sql.SQLException;
 
 public class ViewEditClientUI extends JFrame implements ActionListener {
 
-        JButton back_button = new JButton("Back to Home");
-        JButton trip_button = new JButton("Go To Trips");
-        JButton add_contact_button = new JButton("Add Contact Info");
-        JButton add_touchpoint_button = new JButton("Add Touchpoint");
-        JButton edit_contact_button = new JButton("View/Edit Contact Info");
-        JButton edit_touchpoint_button = new JButton("View/Edit Touchpoint");
-        JButton pipeline_button = new JButton("Edit Pipeline Info");
+        JButton backButton = new JButton("Back to Home");
+        JButton tripButton = new JButton("Go To Trips");
+        JButton addContactButton = new JButton("Add Contact Info");
+        JButton addTouchpointButton = new JButton("Add Touchpoint");
+        JButton editContactButton = new JButton("View/Edit Contact Info");
+        JButton editTouchpointButton = new JButton("View/Edit Touchpoint");
+        JButton deleteContactButton = new JButton("Delete Contact");
+        JButton deleteTouchpointButton = new JButton("Delete Touchpoint");
+        JButton pipelineButton = new JButton("Edit Pipeline Info");
         String location;
         DefaultListModel<Touchpoint> tpModel = new DefaultListModel<>();
         JList<Touchpoint> tpList = new JList<>(tpModel);
@@ -119,7 +121,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
             topPanel.add(new JLabel(location), g);
 
             g.gridx = 2;
-            topPanel.add(pipeline_button, g);
+            topPanel.add(pipelineButton, g);
 
             main.add(topPanel, BorderLayout.NORTH);
 
@@ -206,9 +208,9 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
 
             //Touchpoint buttons
             JPanel touchButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
-            touchButtons.add(add_touchpoint_button);
-            touchButtons.add(edit_touchpoint_button);
-            touchButtons.add(new JButton("Delete Touchpoint"));
+            touchButtons.add(addTouchpointButton);
+            touchButtons.add(editTouchpointButton);
+            touchButtons.add(deleteTouchpointButton);
 
             touchSection.add(touchButtons);
 
@@ -248,9 +250,9 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
 
             //Contact buttons
             JPanel contactButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
-            contactButtons.add(add_contact_button);
-            contactButtons.add(edit_contact_button);
-            contactButtons.add(new JButton("Delete Contact"));
+            contactButtons.add(addContactButton);
+            contactButtons.add(editContactButton);
+            contactButtons.add(deleteContactButton);
 
             contactSection.add(contactButtons);
 
@@ -274,20 +276,27 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
             //Bottom Menu
             JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 10));
             //bottom.add(save_button);
-            bottom.add(back_button);
-            bottom.add(trip_button);
+            bottom.add(backButton);
+            bottom.add(tripButton);
 
             main.add(bottom, BorderLayout.SOUTH);
 
-            back_button.setActionCommand("BACK");
-            add_contact_button.setActionCommand("ADD_CONTACT");
-            trip_button.setActionCommand("TRIPS");
-            pipeline_button.setActionCommand("PIPELINE");
+            backButton.setActionCommand("BACK");
+            addContactButton.setActionCommand("ADD_CONTACT");
+            editContactButton.setActionCommand("EDIT_CONTACT");
+            tripButton.setActionCommand("TRIPS");
+            pipelineButton.setActionCommand("PIPELINE");
+            addTouchpointButton.setActionCommand("ADD_TOUCHPOINT");
+            editTouchpointButton.setActionCommand("EDIT_TOUCHPOINT");
 
-            back_button.addActionListener(this);
-            trip_button.addActionListener(this);
-            pipeline_button.addActionListener(this);
-            add_contact_button.addActionListener(this);
+
+            backButton.addActionListener(this);
+            tripButton.addActionListener(this);
+            pipelineButton.addActionListener(this);
+            addContactButton.addActionListener(this);
+            editContactButton.addActionListener(this);
+            addTouchpointButton.addActionListener(this);
+            editTouchpointButton.addActionListener(this);
 
             this.add(main);
             this.setVisible(true);
@@ -306,6 +315,15 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
                 case "PIPELINE":
                     EventQueue.invokeLater(RunClientAndMethods::TempScreen);
                     ViewEditClientUI.this.dispose();
+                    break;
+                case "EDIT_TOUCHPOINT":
+                    JOptionPane.showMessageDialog(this, "Editing touchpoints is not yet implemented");
+                    break;
+                case "ADD_TOUCHPOINT":
+                    JOptionPane.showMessageDialog(this, "Adding touchpoints is not yet implemented");
+                    break;
+                case "EDIT_CONTACT":
+                    JOptionPane.showMessageDialog(this, "Editing contacts is not yet implemented");
                     break;
                 case "ADD_CONTACT":
                     EventQueue.invokeLater(() -> new AddContact(myClient));
