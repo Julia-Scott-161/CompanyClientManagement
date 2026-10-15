@@ -304,7 +304,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Trips not yet implemented");
                     break;
                 case "PIPELINE":
-                    JOptionPane.showMessageDialog(this, "Pipeline not yet implemented");
+                    EventQueue.invokeLater(RunClientAndMethods::TempScreen);
                     break;
                 case "ADD_CONTACT":
                     EventQueue.invokeLater(() -> new AddContact(myClient));

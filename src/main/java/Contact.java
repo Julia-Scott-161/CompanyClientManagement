@@ -18,7 +18,7 @@ public class Contact {
     }
 
 //---------------methods to replace direct SELECT calls-----------------//
-    public int getContact_Id() {return Contact_ID;}
+    public int getContactId() {return Contact_ID;}
     public String getType() {return Cnt_Type;}
     public boolean getPref() {return Pref_Cont;}
     public String getInfo() {return Contact_Info;}

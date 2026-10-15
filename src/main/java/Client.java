@@ -49,7 +49,6 @@ public class Client {
      */
     @Override
     public String toString() {
-        //TODO: Date Added is always going to be not null. A dateSafe check is probably redundant
         String dateSafe = (dateA != null) ? dateA.toString() : "No Date";
         return name + " (added: " + dateSafe + ")";
     }

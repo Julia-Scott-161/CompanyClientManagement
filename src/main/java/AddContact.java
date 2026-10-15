@@ -17,8 +17,8 @@ public class AddContact extends JFrame implements ActionListener {
     private JCheckBox preferredBox;
     private JTextArea contactDetailsArea;
 
-    private JButton add_button = new JButton("Add Contact");
-    private JButton back_button = new JButton("Back to Client Info");
+    private JButton addButton = new JButton("Add Contact");
+    private JButton backButton = new JButton("Back to Client Info");
 
     private Client myClient;
 
@@ -70,12 +70,12 @@ public class AddContact extends JFrame implements ActionListener {
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         //add buttons to panel
-        bottom.add(add_button);
-        bottom.add(back_button);
+        bottom.add(addButton);
+        bottom.add(backButton);
 
         //declare button actions
-        add_button.addActionListener(this);
-        back_button.addActionListener(this);
+        addButton.addActionListener(this);
+        backButton.addActionListener(this);
 
         //add panels to frame, declare/clarify layout placement
         this.add(main,BorderLayout.CENTER);
@@ -85,22 +85,15 @@ public class AddContact extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == add_button) {
+        if (e.getSource() == addButton) {
             String type = (String) contactTypeBox.getSelectedItem();
             boolean preferred = preferredBox.isSelected();
             String info = contactDetailsArea.getText();
-            //for testing purposes
-//            System.out.println("Adding Contact:");
-//            System.out.println(type);
-//            System.out.println(preferred);
-//            System.out.println(info);
 
             String id;
             try {
-                //id calls to a method in RunClient_and_Methods which generates a unique ID
-                //that is one more than the current max
-                //currently a different method than to generate client_ID, since coding it
-                // to accept table/Column Name didn't get implemented in time
+                // id calls to a method in RunClient_and_Methods which generates a unique ID
+                // that is one more than the current max
                 id = String.valueOf(RunClientAndMethods.generate_contact_ID());
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -113,8 +106,8 @@ public class AddContact extends JFrame implements ActionListener {
              * the stored procedure test_execute_command uses to add
              * the client to the database.
              */
-            //calls the method execute_query from RunClientAndMethods.java
-            //which executes the stored procedure
+            // calls the method execute_query from RunClientAndMethods.java
+            // which executes the stored procedure
             StringBuilder message = new StringBuilder("INSERT:CONTACT:");
             message.append("Contact_ID:").append(id)
                     .append(":Cnt_Type:").append(type)
@@ -124,17 +117,17 @@ public class AddContact extends JFrame implements ActionListener {
 
             try {
                 RunClientAndMethods.executeQuery(message.toString());
-                //message to show that contact was added successfully
+                // message to show that contact was added successfully
                 JOptionPane.showMessageDialog(null, "Contact Added");
-                EventQueue.invokeLater(() -> new ViewEditClientUI(myClient)); //go back to the client which contact was added for
+                EventQueue.invokeLater(() -> new ViewEditClientUI(myClient)); // go back to the client which contact was added for
                 this.dispose();
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Contact couldn't be added: " + ex.getMessage());
             }
         }
-        if (e.getSource() == back_button) {
-            EventQueue.invokeLater(() -> new ViewEditClientUI(myClient)); //go back to the client which add contact was selected
+        if (e.getSource() == backButton) {
+            EventQueue.invokeLater(() -> new ViewEditClientUI(myClient)); // go back to the client which add contact was selected
             this.dispose();
         }
     }
