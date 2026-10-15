@@ -5,12 +5,11 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class HomeMenu extends JFrame implements ActionListener {
-    static Color logoYellow = new Color(241,204,97);
     DefaultListModel<Client> model = new DefaultListModel<>();
     JList<Client> list = new JList<>(model);
-    JButton update_button = new JButton("View/Update Client");
-    JButton add_button = new JButton("    Add Client   ");
-    JButton delete_button = new JButton("   Delete Client   ");
+    JButton updateButton = new JButton("View/Update Client");
+    JButton addButton = new JButton("    Add Client   ");
+    JButton deleteButton = new JButton("   Delete Client   ");
 
     /**
      * Sets up a home menu, launched when database
@@ -52,6 +51,7 @@ public class HomeMenu extends JFrame implements ActionListener {
         JLabel clientsLabel = new JLabel("Clients List:", SwingConstants.CENTER);
         clientsLabel.setFont(new Font("Arial", Font.BOLD, 12));
         clientList.add(clientsLabel, BorderLayout.NORTH);
+
         //creates client objects, using Client.java class
         try {
             PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT * FROM CLIENT");
@@ -77,16 +77,12 @@ public class HomeMenu extends JFrame implements ActionListener {
         buttonPanel.setPreferredSize(new Dimension(350, 150));
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
-        add_button.setBackground(logoYellow);
-        update_button.setBackground(logoYellow);
-        delete_button.setBackground(logoYellow);
-
-        buttonPanel.add(add_button);
-        add_button.addActionListener(this);
-        buttonPanel.add(update_button);
-        update_button.addActionListener(this);
-        buttonPanel.add(delete_button);
-        delete_button.addActionListener(this);
+        buttonPanel.add(addButton);
+        addButton.addActionListener(this);
+        buttonPanel.add(updateButton);
+        updateButton.addActionListener(this);
+        buttonPanel.add(deleteButton);
+        deleteButton.addActionListener(this);
 
         this.add(buttonPanel);
 
@@ -98,12 +94,12 @@ public class HomeMenu extends JFrame implements ActionListener {
         //get the selected client (at top since used in both update/delete actions)
         Client selected = list.getSelectedValue();
         //if add selected
-        if (e.getSource() == add_button) {
-            EventQueue.invokeLater(RunClientAndMethods::add_client_screen);
+        if (e.getSource() == addButton) {
+            EventQueue.invokeLater(RunClientAndMethods::addClientScreen);
             HomeMenu.this.dispose();
         }
         //if update selected, call view/edit UI based on selected client values
-        if (e.getSource() == update_button) {
+        if (e.getSource() == updateButton) {
             if (selected == null) {
                 JOptionPane.showMessageDialog(this, "Please select a Client first");
                 return;
@@ -111,7 +107,7 @@ public class HomeMenu extends JFrame implements ActionListener {
             EventQueue.invokeLater(() -> new ViewEditClientUI(selected));
             HomeMenu.this.dispose();
         }
-        if (e.getSource() == delete_button) {
+        if (e.getSource() == deleteButton) {
             if (selected == null) {
                 JOptionPane.showMessageDialog(this, "Please select a Client first");
                 return;

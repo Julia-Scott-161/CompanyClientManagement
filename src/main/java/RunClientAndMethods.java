@@ -105,7 +105,7 @@ public class RunClientAndMethods {
      * generates a unique ID for adding table rows
      * @throws SQLException
      */
-    public static int generate_unique_ID() throws SQLException {
+    public static int generateUniqueId() throws SQLException {
         try {
             PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT MAX(Client_ID) AS max_ID FROM CLIENT");
             ResultSet set = stmt.executeQuery();
@@ -128,7 +128,7 @@ public class RunClientAndMethods {
      * @return int id which is 1 more than the current highest id
      * @throws SQLException
      */
-    public static int generate_contact_ID() throws SQLException {
+    public static int generateContactId() throws SQLException {
         try {
             PreparedStatement stmt = DatabaseConnection.conn.prepareStatement("SELECT MAX(Contact_ID) AS max_ID FROM CONTACT");
             ResultSet set = stmt.executeQuery();
@@ -144,12 +144,12 @@ public class RunClientAndMethods {
         }
 
     }
-    static void add_client_screen() {
+    static void addClientScreen() {
         AddClient frame = new AddClient();
         setDefaults(frame);
     }
 
-    static void home_menu_screen() {
+    static void homeMenuScreen() {
         HomeMenu frame = new HomeMenu();
         setDefaults(frame);
     }
@@ -159,13 +159,13 @@ public class RunClientAndMethods {
         setDefaults(frame);
     }
 
-    static void database_connection() {
+    static void databaseConnection() {
         DatabaseConnection frame = new DatabaseConnection();
         setDefaults(frame);
     }
 
     public static void main(String[] args) {
-        database_connection();
+        databaseConnection();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 DatabaseConnection.dropProcedure();

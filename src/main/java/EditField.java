@@ -34,8 +34,9 @@ public class EditField extends JPanel implements ActionListener {
         private JCheckBox checkBox;
         private JComboBox<String> comboBox;
 
-        private JButton edit_button = new JButton("Edit");
-        private JButton save_button = new JButton("Save");
+        private JButton editButton = new JButton("Edit");
+        private JButton saveButton = new JButton("Save");
+
         private String columnName;
         private int clientId;
 
@@ -86,11 +87,11 @@ public class EditField extends JPanel implements ActionListener {
             layout.show(cards, "VIEW");
 
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-            buttons.add(edit_button);
-            buttons.add(save_button);
+            buttons.add(editButton);
+            buttons.add(saveButton);
 
-            edit_button.addActionListener(this);
-            save_button.addActionListener(this);
+            editButton.addActionListener(this);
+            saveButton.addActionListener(this);
 
             add(cards, BorderLayout.CENTER);
             add(buttons, BorderLayout.SOUTH);
@@ -150,7 +151,7 @@ public class EditField extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == save_button) {
+        if (e.getSource() == saveButton) {
             boolean changed = saveValue();
 
             if (changed) {
@@ -170,7 +171,7 @@ public class EditField extends JPanel implements ActionListener {
             updateViewLabel();
             layout.show(cards, "VIEW");
         }
-        if (e.getSource() == edit_button) {
+        if (e.getSource() == editButton) {
             layout.show(cards, "EDIT");
         }
     }

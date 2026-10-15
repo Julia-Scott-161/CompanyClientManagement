@@ -281,7 +281,7 @@ public class DatabaseConnection extends JFrame implements ActionListener {
                     connect(username.getText(), password.getText());
                     //set up stored procedure
                     this.setVisible(false); //get rid of/hide start menu
-                    EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
+                    EventQueue.invokeLater(RunClientAndMethods::homeMenuScreen);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Couldn't connect, try again!\n" + ex.getMessage());

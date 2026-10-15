@@ -297,7 +297,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {
                 case "BACK":
-                    EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
+                    EventQueue.invokeLater(RunClientAndMethods::homeMenuScreen);
                     ViewEditClientUI.this.dispose();
                     break;
                 case "TRIPS":
@@ -305,6 +305,7 @@ public class ViewEditClientUI extends JFrame implements ActionListener {
                     break;
                 case "PIPELINE":
                     EventQueue.invokeLater(RunClientAndMethods::TempScreen);
+                    ViewEditClientUI.this.dispose();
                     break;
                 case "ADD_CONTACT":
                     EventQueue.invokeLater(() -> new AddContact(myClient));

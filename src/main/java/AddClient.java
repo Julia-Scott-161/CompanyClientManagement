@@ -88,7 +88,7 @@ public class AddClient extends JFrame implements ActionListener {
             try {
                 // id calls to a method in RunClient_and_Methods which generates a unique ID
                 // that is one more than the current max
-                id = String.valueOf(RunClientAndMethods.generate_unique_ID());
+                id = String.valueOf(RunClientAndMethods.generateUniqueId());
                 System.out.println("ID = "+ id);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -120,7 +120,7 @@ public class AddClient extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == backButton) {
-            EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
+            EventQueue.invokeLater(RunClientAndMethods::homeMenuScreen);
             AddClient.this.dispose();
         }
     }

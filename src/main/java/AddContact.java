@@ -94,7 +94,7 @@ public class AddContact extends JFrame implements ActionListener {
             try {
                 // id calls to a method in RunClient_and_Methods which generates a unique ID
                 // that is one more than the current max
-                id = String.valueOf(RunClientAndMethods.generate_contact_ID());
+                id = String.valueOf(RunClientAndMethods.generateContactId());
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }

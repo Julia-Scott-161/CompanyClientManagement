@@ -26,7 +26,7 @@ public class TempScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
-            EventQueue.invokeLater(RunClientAndMethods::home_menu_screen);
+            EventQueue.invokeLater(RunClientAndMethods::homeMenuScreen);
             this.dispose();
         }
     }
